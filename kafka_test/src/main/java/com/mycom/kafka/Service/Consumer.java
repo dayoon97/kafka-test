@@ -64,7 +64,7 @@ public class Consumer {
 		properties.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, enableAutoCommit);
 		consumer = new KafkaConsumer<>(properties);
 	}
-	
+
 	@KafkaListener(topics = "pooh", groupId = "xxx")
 	public void consume2(@Headers MessageHeaders headers, @Payload String payload) throws IOException {
 		log.info("CONSUME HEADERS : " + headers.toString());
@@ -80,30 +80,6 @@ public class Consumer {
 	public void consume4(String message) throws IOException {
 		System.out.println(String.format("Consumed message : %s", message));
 	}
-//	@KafkaListener(topicPattern = "pooh.*", groupId = "xxx")
-//	public void consume(@Headers MessageHeaders headers, @Payload String payload, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws IOException {
-//		log.info("CONSUME HEADERS : " + headers.toString());
-//		log.info("CONSUME PAYLOAD : " + payload);
-//	}
-//	
-	
-//	String tp = "tttt";
-//	
-//	@Bean
-//	public NewTopic myTopic() {
-//		return TopicBuilder.name(tp)
-//				.build();
-//	}
-	
-//	@KafkaListener(topicPattern = "pooh.*", groupId = "xxx")
-//	public void consume(String message) throws IOException {
-//		System.out.println(String.format("Consumed message1 : %s", message));
-//	}
-	
-//	@KafkaListener(topicPattern = "pooh.*", groupId = "xxx")
-//	public void consume2(String message) throws IOException {
-//		System.out.println(String.format("Consumed message2 : %s", message));
-//	}
-//	
+
 	
 }

@@ -55,10 +55,16 @@ public class Producer {
     
     @PostMapping("/kafka")
     public void sendMessage(String message) {
-        System.out.println(String.format("Produce message : %s", message));
+        //System.out.println(String.format("Produce message : %s", message));
+        
+        if(message.equals("quit")) {
+        	log.info("Stop");
+        } else {
+        	log.info("Produce msg => " + message);
+        }
 //    	String result = "SEND FAIL";
-//    	try {
 //    	ProducerRecord<String, String> prd = new ProducerRecord<String, String>(this.topicName, message);
+//    	try {
 //    		producer.send(prd, new Callback() {
 //    			@Override
 //    			public void onCompletion(RecordMetadata metadata, Exception exception) {
