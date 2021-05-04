@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mycom.kafka.Service.Consumer;
 import com.mycom.kafka.Service.Producer;
+import com.mycom.model.Message;
 
 @RestController
 public class KafkaController {
@@ -23,8 +24,9 @@ public class KafkaController {
 	 }
 
 	 @RequestMapping("/kafka")
-	 public String sendMessage(@RequestParam("message") String message) {
-	     this.producer.sendMessage(message);
+	 public String sendMessage(@RequestParam String message, @RequestParam Integer age) {
+		 producer.produce(new Message(message, age));
+	     //this.producer.sendMessage(message);
 
 	     return "here sendMessage = " + message;
 	 }

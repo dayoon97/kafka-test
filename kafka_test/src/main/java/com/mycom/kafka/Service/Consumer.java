@@ -19,6 +19,8 @@ import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
+import com.mycom.model.Message;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -35,9 +37,6 @@ public class Consumer {
 	
 	@Value("${spring.kafka.consumer.value-deserializer}")
 	private String valueDeSerializer;
-	
-	@Value("${spring.kafka.template.default-topic}")
-	private String topicName;
 	
 	@Value("${spring.kafka.consumer.group-id}")
 	private String groupId;
@@ -65,21 +64,24 @@ public class Consumer {
 		consumer = new KafkaConsumer<>(properties);
 	}
 
-	@KafkaListener(topics = "pooh", groupId = "xxx")
-	public void consume2(@Headers MessageHeaders headers, @Payload String payload) throws IOException {
+	@KafkaListener(topics = "pooh", groupId = "foo1")
+	public void consume2(@Headers MessageHeaders headers, @Payload String payload, Message message) throws IOException {
 		log.info("CONSUME HEADERS : " + headers.toString());
 		log.info("CONSUME PAYLOAD : " + payload);
+		log.info("MESSAGE : " + message);
 	}
 	
-	@KafkaListener(topics = "exam1", groupId = "foo1")
-	public void consume3(String message) throws IOException {
-		System.out.println(String.format("Consumed message : %s", message));
-	}
+//	@KafkaListener(topicPattern = "exam.*", groupId = "foo1")
+//	public void consume3(@Headers MessageHeaders headers, @Payload String payload) throws IOException {
+//		log.info("CONSUME HEADERS : " + headers.toString());
+//		log.info("CONSUME PAYLOAD : " + payload);
+//	}
 	
-	@KafkaListener(topics = "exam2", groupId = "foo1")
-	public void consume4(String message) throws IOException {
-		System.out.println(String.format("Consumed message : %s", message));
-	}
+//	@KafkaListener(topics = "exam2", groupId = "foo1")
+//	public void consume4(@Headers MessageHeaders headers, @Payload String payload) throws IOException {
+//		log.info("CONSUME HEADERS : " + headers.toString());
+//		log.info("CONSUME PAYLOAD : " + payload);
+//	}
 
 	
 }
